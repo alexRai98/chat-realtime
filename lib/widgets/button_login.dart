@@ -1,30 +1,44 @@
 import 'package:flutter/material.dart';
 
-class ButtonLogin extends StatelessWidget {
-  int bgColor;
-  String urlLogo;
-  String text;
-  int textColor;
-  ButtonLogin(this.bgColor, this.urlLogo, this.text, this.textColor);
+class ButtonLogin extends StatefulWidget {
+  final int bgColor;
+  final String urlLogo;
+  final String text;
+  final int textColor;
+  final VoidCallback onPressed;
+
+  ButtonLogin(
+      {Key key,
+      @required this.onPressed,
+      this.bgColor,
+      this.urlLogo,
+      this.text,
+      this.textColor});
+
+  @override
+  _ButtonLoginState createState() => _ButtonLoginState();
+}
+
+class _ButtonLoginState extends State<ButtonLogin> {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
         padding: EdgeInsets.symmetric(vertical: 15),
-        color: Color(bgColor),
-        onPressed: () {},
+        color: Color(widget.bgColor),
+        onPressed: widget.onPressed,
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              urlLogo,
+              widget.urlLogo,
               height: 20,
             ),
             Container(
               padding: EdgeInsets.only(left: 10.0),
               child: Text(
-                text,
-                style: TextStyle(color: Color(textColor), fontSize: 20),
+                widget.text,
+                style: TextStyle(color: Color(widget.textColor), fontSize: 20),
               ),
             ),
           ],
