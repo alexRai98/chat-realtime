@@ -40,7 +40,6 @@ class _SignInState extends State<SignIn> {
 
   Widget signInWithGoogle() {
     return Scaffold(
-      // appBar: appBarMain(context),
       body: Container(
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 24),
@@ -49,7 +48,7 @@ class _SignInState extends State<SignIn> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "Welcome \nThis's your Chat-Doc App",
+              "Welcome! \nThis's your Chat-Doc App",
               style: TextStyle(
                   fontSize: 38,
                   fontFamily: "Lato",

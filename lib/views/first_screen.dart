@@ -1,4 +1,7 @@
+import 'package:challengeChat/service/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'login.dart';
 
 class FirstScreen extends StatefulWidget {
   @override
@@ -11,7 +14,17 @@ class _FirstScreenState extends State<FirstScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Doc-Doc Chat"),
-        actions: [Icon(Icons.exit_to_app)],
+        actions: [
+          GestureDetector(
+              onTap: () {
+                signOutGoogle();
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => SignIn()));
+              },
+              child: Container(
+                  padding: EdgeInsets.only(right: 15),
+                  child: Icon(Icons.exit_to_app)))
+        ],
       ),
       body: Container(
           alignment: Alignment.center,
