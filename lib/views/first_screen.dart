@@ -1,4 +1,5 @@
 import 'package:challengeChat/service/firebase_auth.dart';
+import 'package:challengeChat/views/search.dart';
 import 'package:flutter/material.dart';
 
 import 'login.dart';
@@ -25,6 +26,13 @@ class _FirstScreenState extends State<FirstScreen> {
                   padding: EdgeInsets.only(right: 15),
                   child: Icon(Icons.exit_to_app)))
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SearchScreen()));
+        },
+        child: Icon(Icons.add),
       ),
       body: Container(
           alignment: Alignment.center,

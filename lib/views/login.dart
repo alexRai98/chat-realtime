@@ -15,14 +15,14 @@ class _SignInState extends State<SignIn> {
     setState(() {
       isLoading = true;
     });
-    logInWithGoogle().then((result) {
-      if (result != null) {
-        Navigator.of(context).push(
+    logInWithGoogle().then((user) {
+      if (user != null) {
+        Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => FirstScreen(),
           ),
         );
-        print(result);
+        // print("el usuario es ${user.displayName}");
       }
     });
   }
