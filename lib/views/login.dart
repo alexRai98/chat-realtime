@@ -1,5 +1,8 @@
+import 'package:challengeChat/service/firebase_auth.dart';
 import 'package:challengeChat/widgets/button_login.dart';
 import "package:flutter/material.dart";
+
+import 'first_screen.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -7,9 +10,32 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  bool isLoading = false;
+  login() {
+    setState(() {
+      isLoading = true;
+    });
+    logInWithGoogle().then((result) {
+      if (result != null) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => FirstScreen(),
+          ),
+        );
+        print(result);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return signInWithGoogle();
+    return isLoading ? spinner() : signInWithGoogle();
+  }
+
+  Widget spinner() {
+    return Container(
+      child: Center(child: CircularProgressIndicator()),
+    );
   }
 
   Widget signInWithGoogle() {
@@ -34,7 +60,9 @@ class _SignInState extends State<SignIn> {
               height: 30,
             ),
             ButtonLogin(
-                onPressed: () {},
+                onPressed: () {
+                  login();
+                },
                 bgColor: 0xFFFFFFFF,
                 urlLogo: "assets/images/logo_google.png",
                 text: "Login with Google",
