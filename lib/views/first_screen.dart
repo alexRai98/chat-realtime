@@ -32,7 +32,7 @@ class _FirstScreenState extends State<FirstScreen> {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => SearchScreen()));
         },
-        child: Icon(Icons.add),
+        child: Icon(Icons.message),
       ),
       body: Container(
           alignment: Alignment.center,
