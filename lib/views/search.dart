@@ -1,4 +1,7 @@
+import 'package:challengeChat/helper/get_current_user.dart';
+import 'package:challengeChat/helper/helperfunction.dart';
 import 'package:challengeChat/service/database.dart';
+import 'package:challengeChat/views/chat_room.dart';
 import 'package:challengeChat/widgets/main_bar.dart';
 import 'package:challengeChat/widgets/search_list_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,7 +24,19 @@ class _SearchScreenState extends State<SearchScreen> {
         searchSnapshot = val;
       });
     });
-    print(searchSnapshot.docs[0].data()["name"]);
+    // print(searchSnapshot.docs[0].data()["name"]);
+  }
+
+  createChatRoomAndStartConversation(String userName) {
+    String chatRoomId = generiChatRoomId(userName, Constans.currentUserName);
+    List<String> users = [userName, Constans.currentUserName];
+    Map<String, dynamic> chatRoomMap = {
+      "users": users,
+      "chatRoomId": chatRoomId
+    };
+    databaseMethods.createChatRoom(chatRoomId, chatRoomMap);
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => ChatRoom(userName: userName)));
   }
 
   @override
@@ -83,16 +98,32 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget searchList() {
+    Future<String> userLogged = HelperFunctions.getUserNameSharePreference();
+
     return searchSnapshot != null
         ? ListView.builder(
             shrinkWrap: true,
             itemCount: searchSnapshot.docs.length,
             itemBuilder: (context, index) {
-              return SearchItem(
-                  searchSnapshot.docs[index].data()["name"],
-                  searchSnapshot.docs[index].data()["url_image"],
-                  searchSnapshot.docs[index].data()["email"]);
+              return userLogged.toString() !=
+                      searchSnapshot.docs[index].data()["name"]
+                  ? SearchItem(
+                      searchSnapshot.docs[index].data()["name"],
+                      searchSnapshot.docs[index].data()["url_image"],
+                      searchSnapshot.docs[index].data()["email"],
+                      createChatRoomAndStartConversation(
+                          searchSnapshot.docs[index].data()["name"]))
+                  : null;
             })
         : Container();
+  }
+}
+
+generiChatRoomId(String user, String user2) {
+  if (user.substring(0, 1).codeUnitAt(0) >
+      user2.substring(0, 1).codeUnitAt(0)) {
+    return "$user2\_$user";
+  } else {
+    return "$user\_$user2";
   }
 }

@@ -4,13 +4,20 @@ class SearchItem extends StatelessWidget {
   final String username;
   final String urlImage;
   final String email;
-  // final VoidCallback chat;
-  SearchItem(this.username, this.urlImage, this.email);
+  final VoidCallback chat;
+  SearchItem(this.username, this.urlImage, this.email, this.chat);
+
   @override
   Widget build(BuildContext context) {
+    return item();
+  }
+
+  Widget item() {
     return RaisedButton(
       color: Colors.white,
-      onPressed: () {},
+      onPressed: () {
+        chat();
+      },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         child: Row(
