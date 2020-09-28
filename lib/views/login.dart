@@ -17,10 +17,10 @@ class _SignInState extends State<SignIn> {
     });
     logInWithGoogle().then((user) {
       if (user != null) {
-        //   HelperFunctions.saveUserLoggedInSharePreference(true);
-        //   HelperFunctions.saveUserNameSharePreference(user.displayName);
-        //   HelperFunctions.saveUserEmailSharePreference(user.email);
-        //   HelperFunctions.saveUserUrlPhotoSharePreference(user.photoURL);
+        HelperFunctions.saveUserLoggedInSharePreference(true);
+        HelperFunctions.saveUserNameSharePreference(user.displayName);
+        HelperFunctions.saveUserEmailSharePreference(user.email);
+        HelperFunctions.saveUserUrlPhotoSharePreference(user.photoURL);
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => DocChat(),
