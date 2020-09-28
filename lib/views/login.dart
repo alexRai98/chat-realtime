@@ -1,7 +1,9 @@
 import 'package:challengeChat/helper/helperfunction.dart';
+import 'package:challengeChat/service/database.dart';
 import 'package:challengeChat/service/firebase_auth.dart';
 import 'package:challengeChat/views/doc_chat.dart';
 import 'package:challengeChat/widgets/button_login.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
 
 class SignIn extends StatefulWidget {
@@ -10,7 +12,10 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  DatabaseMethods databaseMethods = new DatabaseMethods();
   bool isLoading = false;
+  // QuerySnapshot searchSnapshot;
+
   login() {
     setState(() {
       isLoading = true;
@@ -21,12 +26,23 @@ class _SignInState extends State<SignIn> {
         HelperFunctions.saveUserNameSharePreference(user.displayName);
         HelperFunctions.saveUserEmailSharePreference(user.email);
         HelperFunctions.saveUserUrlPhotoSharePreference(user.photoURL);
+        // String useName = user.displayName.split(" ").first;
+        // Map<String, String> userInfo = {
+        //   "name": useName,
+        //   "email": user.email,
+        //   "url_image": user.photoURL
+        // };
+        // databaseMethods.getUsersByEmail(user.email).then((value) {
+        //   setState(() {
+        //     searchSnapshot = value;
+        //   });
+        // });
+        // databaseMethods.addUSerInfo(userInfo);
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => DocChat(),
           ),
         );
-        // print("el usuario es ${user.displayName}");
       }
     });
   }

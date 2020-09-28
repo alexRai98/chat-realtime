@@ -10,7 +10,16 @@ class DatabaseMethods {
         .getDocuments();
   }
 
-  uploadUSerInfo(userMap) {
+  getUsersByEmail(String userEmail) async {
+    // ignore: deprecated_member_use
+    return await Firestore.instance
+        .collection("users")
+        .where("email", isEqualTo: userEmail)
+        // ignore: deprecated_member_use
+        .getDocuments();
+  }
+
+  addUSerInfo(userMap) {
     // ignore: deprecated_member_use
     Firestore.instance
         .collection("users")
