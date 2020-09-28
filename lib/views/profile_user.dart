@@ -11,9 +11,9 @@ class ProfileUser extends StatelessWidget {
     return Container(
       child: Column(
         children: [
+          Image(image: NetworkImage(Constans.currentUserUrlPhoto)),
           Text(Constans.currentUserName),
           Text(Constans.currentUserEmail),
-          Image(image: NetworkImage(Constans.currentUserUrlPhoto))
         ],
       ),
     );
