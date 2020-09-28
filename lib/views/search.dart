@@ -1,7 +1,7 @@
 import 'package:challengeChat/helper/get_current_user.dart';
 import 'package:challengeChat/helper/helperfunction.dart';
 import 'package:challengeChat/service/database.dart';
-import 'package:challengeChat/views/chat_room.dart';
+import 'package:challengeChat/views/conversation_screen.dart';
 import 'package:challengeChat/widgets/search_list_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -26,18 +26,21 @@ class _SearchScreenState extends State<SearchScreen> {
     // print(searchSnapshot.docs[0].data()["name"]);
   }
 
-  createChatRoomAndStartConversation(String userName) {
-    String chatRoomId = generiChatRoomId(userName, Constans.currentUserName);
-    List<String> users = [userName, Constans.currentUserName];
-    // String chatRoomId = generiChatRoomId(userName, "otherUser2");
-    // List<String> users = [userName, "otherUSer2"];
+  createChatRoomAndStartConversation(String userEmail, String userName) {
+    String chatRoomId = generiChatRoomId(userEmail, Constans.currentUserEmail);
+    List<String> users = [userEmail, Constans.currentUserEmail];
     Map<String, dynamic> chatRoomMap = {
       "users": users,
       "chatRoomId": chatRoomId
     };
     databaseMethods.createChatRoom(chatRoomId, chatRoomMap);
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => ChatRoom(userName: userName)));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ConversationScreen(
+                  userName: userName,
+                  chatRoomId: chatRoomId,
+                )));
   }
 
   @override
@@ -104,6 +107,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       searchSnapshot.docs[index].data()["url_image"],
                       searchSnapshot.docs[index].data()["email"],
                       () => createChatRoomAndStartConversation(
+                          searchSnapshot.docs[index].data()["email"],
                           searchSnapshot.docs[index].data()["name"]))
                   : null;
             })

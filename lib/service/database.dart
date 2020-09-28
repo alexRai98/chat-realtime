@@ -15,7 +15,7 @@ class DatabaseMethods {
     Firestore.instance
         .collection("users")
         .add(userMap)
-        .catchError((e) => print(e));
+        .catchError((e) => print(e.toString()));
   }
 
   createChatRoom(String chatRoomId, chatRoomMap) {
@@ -24,6 +24,32 @@ class DatabaseMethods {
         .collection("chatRoom")
         .doc(chatRoomId)
         .set(chatRoomMap)
-        .catchError((e) => print(e));
+        .catchError((e) => print(e.toString()));
+  }
+
+  addConversationMessages(String chatRoomId, messageMap) {
+    FirebaseFirestore.instance
+        .collection("chatRoom")
+        .doc(chatRoomId)
+        .collection("chat")
+        .add(messageMap)
+        .catchError((e) => print(e.toString()));
+  }
+
+  getConversationMessages(String chatRoomId) async {
+    // ignore: deprecated_member_use
+    return await Firestore.instance
+        .collection("chatRoom")
+        .doc(chatRoomId)
+        .collection("chat")
+        .orderBy("time", descending: false)
+        .snapshots();
+  }
+
+  getChatRooms(String userEmail) {
+    return FirebaseFirestore.instance
+        .collection("chatRoom")
+        .where("users", arrayContains: userEmail)
+        .snapshots();
   }
 }
