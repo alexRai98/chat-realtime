@@ -1,3 +1,4 @@
+import 'package:challengeChat/views/doc_chat.dart';
 import 'package:flutter/material.dart';
 
 class ChatRoom extends StatefulWidget {
@@ -14,7 +15,10 @@ class _ChatRoomState extends State<ChatRoom> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => DocChat()));
+          },
         ),
         title: Text(widget.userName),
       ),
