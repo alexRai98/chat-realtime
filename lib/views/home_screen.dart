@@ -37,7 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [MainBar(), Container(child: chatRoomList())],
+      children: [
+        MainBar("Doc Chat", 100, true),
+        // Container(child: chatRoomList())
+      ],
     );
   }
 
