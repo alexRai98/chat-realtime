@@ -1,9 +1,8 @@
 import 'package:challengeChat/helper/helperfunction.dart';
 import 'package:challengeChat/service/firebase_auth.dart';
+import 'package:challengeChat/views/doc_chat.dart';
 import 'package:challengeChat/widgets/button_login.dart';
 import "package:flutter/material.dart";
-
-import 'first_screen.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -24,7 +23,7 @@ class _SignInState extends State<SignIn> {
         HelperFunctions.saveUserUrlPhotoSharePreference(user.photoURL);
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => FirstScreen(),
+            builder: (context) => DocChat(),
           ),
         );
         // print("el usuario es ${user.displayName}");
@@ -56,7 +55,6 @@ class _SignInState extends State<SignIn> {
               "Welcome! \nThis's your Chat-Doc App",
               style: TextStyle(
                   fontSize: 38,
-                  fontFamily: "Lato",
                   color: Colors.lightBlue,
                   fontWeight: FontWeight.bold),
             ),

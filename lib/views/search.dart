@@ -40,59 +40,50 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   @override
-  // void initState() {
-  //   initialSearch();
-  //   super.initState();
-  // }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBarMain(context),
-      body: Container(
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  offset: Offset(0.0, 1.0),
-                  blurRadius: 6.0,
-                )
-              ]),
-              child: Row(
-                children: [
-                  Expanded(
-                      child: TextField(
-                    style: TextStyle(fontSize: 20),
-                    controller: searchTextControler,
-                    onChanged: (text) => print(text),
-                    decoration: InputDecoration(
-                        hintText: "Search username ....",
-                        hintStyle: TextStyle(color: Colors.black26),
-                        border: InputBorder.none),
-                  )),
-                  GestureDetector(
-                    onTap: () {
-                      initialSearch();
-                    },
-                    child: Container(
-                      height: 40,
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 9),
-                      decoration: BoxDecoration(
-                          color: Colors.black12,
-                          borderRadius: BorderRadius.circular(50)),
-                      child: Icon(Icons.search),
-                    ),
+    return Container(
+      padding: EdgeInsets.only(top: 25),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(color: Colors.white, boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                offset: Offset(0.0, 1.0),
+                blurRadius: 6.0,
+              )
+            ]),
+            child: Row(
+              children: [
+                Expanded(
+                    child: TextField(
+                  style: TextStyle(fontSize: 20),
+                  controller: searchTextControler,
+                  onChanged: (text) => print(text),
+                  decoration: InputDecoration(
+                      hintText: "Search username ....",
+                      hintStyle: TextStyle(color: Colors.black26),
+                      border: InputBorder.none),
+                )),
+                GestureDetector(
+                  onTap: () {
+                    initialSearch();
+                  },
+                  child: Container(
+                    height: 40,
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 9),
+                    decoration: BoxDecoration(
+                        color: Colors.black12,
+                        borderRadius: BorderRadius.circular(50)),
+                    child: Icon(Icons.search),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            searchList()
-          ],
-        ),
+          ),
+          searchList()
+        ],
       ),
     );
   }

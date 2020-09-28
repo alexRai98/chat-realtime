@@ -1,5 +1,3 @@
-import 'package:challengeChat/views/first_screen.dart';
-import 'package:challengeChat/views/search.dart';
 import 'package:flutter/material.dart';
 
 class ChatRoom extends StatefulWidget {
