@@ -22,6 +22,8 @@ class _DocChatState extends State<DocChat> {
         await HelperFunctions.getUserNameSharePreference();
     Constans.currentUserEmail =
         await HelperFunctions.getUserEmailSharePreference();
+    Constans.currentUserUserName =
+        await HelperFunctions.getUserUserNameSharePreference();
     Constans.currentUserUrlPhoto =
         await HelperFunctions.getUserUrlPhotoSharePreference();
   }

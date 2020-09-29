@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class ChatRoomItem extends StatelessWidget {
   final String userName;
   ChatRoomItem(this.userName);
+
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -28,7 +28,11 @@ class _SearchScreenState extends State<SearchScreen> {
 
   createChatRoomAndStartConversation(String userEmail, String userName) {
     String chatRoomId = generiChatRoomId(userEmail, Constans.currentUserEmail);
-    List<String> users = [userEmail, Constans.currentUserEmail];
+    String userSend = "${userEmail}_$userName";
+    String userCurrent =
+        "${Constans.currentUserEmail}_${Constans.currentUserUserName}";
+    List<String> users = [userSend, userCurrent];
+
     Map<String, dynamic> chatRoomMap = {
       "users": users,
       "chatRoomId": chatRoomId

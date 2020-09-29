@@ -12,10 +12,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   DatabaseMethods databaseMethods = new DatabaseMethods();
   Stream chatRoomStream;
+  String userEmailName =
+      "${Constans.currentUserEmail}_${Constans.currentUserUserName}";
 
   @override
   void initState() {
-    databaseMethods.getChatRooms(Constans.currentUserEmail).then((value) {
+    databaseMethods.getChatRooms(userEmailName).then((value) {
       setState(() {
         chatRoomStream = value;
       });
@@ -41,6 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ? ListView.builder(
                   itemCount: snapshot.data.docs.length,
                   itemBuilder: (context, index) {
+                    // print(snapshot.data.docs[index]
+                    //     .data()['users']
+                    //     .data
+                    //     .docs[0]
+                    //     .data()["userName"]);
                     return ChatRoomItem(
                       snapshot.data.docs[index].data()['chatRoomId'],
                     );

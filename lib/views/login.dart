@@ -25,6 +25,8 @@ class _SignInState extends State<SignIn> {
       if (user != null) {
         HelperFunctions.saveUserLoggedInSharePreference(true);
         HelperFunctions.saveUserNameSharePreference(user.displayName);
+        HelperFunctions.saveUserUserNameSharePreference(
+            user.displayName.split(" ")[0]);
         HelperFunctions.saveUserEmailSharePreference(user.email);
         HelperFunctions.saveUserUrlPhotoSharePreference(user.photoURL);
         Map<String, dynamic> userInfo = {
