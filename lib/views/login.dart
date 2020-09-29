@@ -52,7 +52,11 @@ class _SignInState extends State<SignIn> {
 
   Widget spinner() {
     return Container(
-      child: Center(child: CircularProgressIndicator()),
+      color: Colors.white,
+      child: Center(
+          child: CircularProgressIndicator(
+        valueColor: new AlwaysStoppedAnimation<Color>(Color(0xFF00DEDC)),
+      )),
     );
   }
 
@@ -69,7 +73,7 @@ class _SignInState extends State<SignIn> {
               "Welcome! \nThis's your Chat-Doc App",
               style: TextStyle(
                   fontSize: 38,
-                  color: Colors.lightBlue,
+                  color: Color(0xFF0FE0D9),
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(

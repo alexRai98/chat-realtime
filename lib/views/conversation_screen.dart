@@ -87,7 +87,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                       height: 50,
                       width: 50,
                       decoration: BoxDecoration(
-                          color: Colors.lightBlue,
+                          color: Color(0xFF00DEDC),
                           borderRadius: BorderRadius.circular(50)),
                       child: Icon(
                         Icons.send,

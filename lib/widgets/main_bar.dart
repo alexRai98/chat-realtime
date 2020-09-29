@@ -13,7 +13,11 @@ class MainBar extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       alignment: Alignment(1.0, 1.0),
       height: heigth,
-      color: Colors.lightBlue,
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Color(0xFF00F0DC), Color(0xFF00C8EF)])),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

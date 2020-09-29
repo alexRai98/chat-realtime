@@ -13,9 +13,11 @@ class MyApp extends StatelessWidget {
       title: 'Doc-doc chat',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          appBarTheme: AppBarTheme(
+            color: Color(0xFF0FE0D9),
+          )),
       home: SignIn(),
     );
   }

@@ -16,9 +16,9 @@ class MessageTile extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
         decoration: BoxDecoration(
             border: isSendByMe
-                ? Border.all(width: 1, color: Colors.lightBlue)
+                ? Border.all(width: 1, color: Color(0xFF00DEDC))
                 : Border.all(width: 1, color: Colors.black26),
-            color: isSendByMe ? Colors.lightBlue : Colors.white,
+            color: isSendByMe ? Color(0xFF00DEDC) : Colors.white,
             borderRadius: isSendByMe
                 ? BorderRadius.only(
                     topLeft: Radius.circular(23),

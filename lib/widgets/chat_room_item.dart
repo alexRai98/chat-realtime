@@ -26,7 +26,7 @@ class ChatRoomItem extends StatelessWidget {
                 width: 40,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: Colors.teal,
+                  color: Color(0xFF00DEDC),
                   shape: BoxShape.circle,
                 ),
                 child: Text(
