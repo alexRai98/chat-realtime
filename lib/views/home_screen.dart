@@ -13,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   DatabaseMethods databaseMethods = new DatabaseMethods();
   Stream chatRoomStream;
   String userEmailName =
-      "${Constans.currentUserEmail}_${Constans.currentUserUserName}";
+      "${Constans.currentUserEmail} ${Constans.currentUserUserName}";
 
   @override
   void initState() {
@@ -43,16 +43,22 @@ class _HomeScreenState extends State<HomeScreen> {
               ? ListView.builder(
                   itemCount: snapshot.data.docs.length,
                   itemBuilder: (context, index) {
-                    // print(snapshot.data.docs[index]
-                    //     .data()['users']
-                    //     .data
-                    //     .docs[0]
-                    //     .data()["userName"]);
-                    return ChatRoomItem(
-                      snapshot.data.docs[index].data()['chatRoomId'],
-                    );
+                    return ChatRoomItem(getUser(Constans.currentUserEmail,
+                        snapshot.data.docs[index].data()['users']));
                   })
               : Container();
         });
   }
+}
+
+String getUser(String email, users) {
+  List dataBaseEmail;
+  String otherUser = "";
+  users.forEach((element) {
+    dataBaseEmail = element.split(" ");
+    if (dataBaseEmail[0] != email) {
+      otherUser = dataBaseEmail[1];
+    }
+  });
+  return otherUser;
 }
