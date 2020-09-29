@@ -1,3 +1,5 @@
+import 'package:challengeChat/helper/get_current_user.dart';
+import 'package:challengeChat/helper/helperfunction.dart';
 import 'package:challengeChat/views/home_screen.dart';
 import 'package:challengeChat/views/search.dart';
 import 'package:challengeChat/views/profile_user.dart';
@@ -9,6 +11,21 @@ class DocChat extends StatefulWidget {
 }
 
 class _DocChatState extends State<DocChat> {
+  @override
+  void initState() {
+    getUsername();
+    super.initState();
+  }
+
+  getUsername() async {
+    Constans.currentUserName =
+        await HelperFunctions.getUserNameSharePreference();
+    Constans.currentUserEmail =
+        await HelperFunctions.getUserEmailSharePreference();
+    Constans.currentUserUrlPhoto =
+        await HelperFunctions.getUserUrlPhotoSharePreference();
+  }
+
   int indexTap = 0;
   final List<Widget> widgetsChildren = [
     HomeScreen(),
