@@ -1,14 +1,22 @@
+import 'package:challengeChat/views/conversation_screen.dart';
 import 'package:flutter/material.dart';
 
 class ChatRoomItem extends StatelessWidget {
   final String userName;
-  ChatRoomItem(this.userName);
+  final String chatRoomId;
+  ChatRoomItem(this.userName, this.chatRoomId);
 
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
       color: Colors.white,
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ConversationScreen(
+                    userName: userName, chatRoomId: chatRoomId)));
+      },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         child: Row(

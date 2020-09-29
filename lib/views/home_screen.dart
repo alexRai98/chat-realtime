@@ -43,8 +43,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ? ListView.builder(
                   itemCount: snapshot.data.docs.length,
                   itemBuilder: (context, index) {
-                    return ChatRoomItem(getUser(Constans.currentUserEmail,
-                        snapshot.data.docs[index].data()['users']));
+                    return ChatRoomItem(
+                        getUser(Constans.currentUserEmail,
+                            snapshot.data.docs[index].data()['users']),
+                        snapshot.data.docs[index].data()['chatRoomId']);
                   })
               : Container();
         });
