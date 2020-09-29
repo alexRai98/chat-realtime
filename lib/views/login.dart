@@ -1,9 +1,10 @@
 import 'package:challengeChat/helper/helperfunction.dart';
+import 'package:challengeChat/models/user.dart';
+import 'package:challengeChat/service/conneted_api.dart';
 import 'package:challengeChat/service/database.dart';
 import 'package:challengeChat/service/firebase_auth.dart';
 import 'package:challengeChat/views/doc_chat.dart';
 import 'package:challengeChat/widgets/button_login.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/material.dart";
 
 class SignIn extends StatefulWidget {
@@ -14,7 +15,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   DatabaseMethods databaseMethods = new DatabaseMethods();
   bool isLoading = false;
-  // QuerySnapshot searchSnapshot;
+  // Future<User> _futureAlbum;
 
   login() {
     setState(() {
@@ -24,20 +25,17 @@ class _SignInState extends State<SignIn> {
       if (user != null) {
         HelperFunctions.saveUserLoggedInSharePreference(true);
         HelperFunctions.saveUserNameSharePreference(user.displayName);
+        HelperFunctions.saveUserUserNameSharePreference(
+            user.displayName.split(" ")[0]);
         HelperFunctions.saveUserEmailSharePreference(user.email);
         HelperFunctions.saveUserUrlPhotoSharePreference(user.photoURL);
-        // String useName = user.displayName.split(" ").first;
-        // Map<String, String> userInfo = {
-        //   "name": useName,
-        //   "email": user.email,
-        //   "url_image": user.photoURL
-        // };
-        // databaseMethods.getUsersByEmail(user.email).then((value) {
-        //   setState(() {
-        //     searchSnapshot = value;
-        //   });
-        // });
-        // databaseMethods.addUSerInfo(userInfo);
+        Map<String, dynamic> userInfo = {
+          "name": user.displayName,
+          "email": user.email,
+          "url_photo": user.photoURL
+        };
+        createUser(userInfo);
+
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => DocChat(),
@@ -54,7 +52,11 @@ class _SignInState extends State<SignIn> {
 
   Widget spinner() {
     return Container(
-      child: Center(child: CircularProgressIndicator()),
+      color: Colors.white,
+      child: Center(
+          child: CircularProgressIndicator(
+        valueColor: new AlwaysStoppedAnimation<Color>(Color(0xFF00DEDC)),
+      )),
     );
   }
 
@@ -71,7 +73,7 @@ class _SignInState extends State<SignIn> {
               "Welcome! \nThis's your Chat-Doc App",
               style: TextStyle(
                   fontSize: 38,
-                  color: Colors.lightBlue,
+                  color: Color(0xFF0FE0D9),
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(

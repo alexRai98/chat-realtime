@@ -10,15 +10,6 @@ class DatabaseMethods {
         .getDocuments();
   }
 
-  getUsersByEmail(String userEmail) async {
-    // ignore: deprecated_member_use
-    return await Firestore.instance
-        .collection("users")
-        .where("email", isEqualTo: userEmail)
-        // ignore: deprecated_member_use
-        .getDocuments();
-  }
-
   addUSerInfo(userMap) {
     // ignore: deprecated_member_use
     Firestore.instance
@@ -55,10 +46,16 @@ class DatabaseMethods {
         .snapshots();
   }
 
-  getChatRooms(String userEmail) async {
+  // getChatRooms(String userEmail) async {
+  //   return await FirebaseFirestore.instance
+  //       .collection("chatRoom")
+  //       .where("users", arrayContains: userEmail)
+  //       .snapshots();
+  // }
+  getChatRooms(String userEmailName) async {
     return await FirebaseFirestore.instance
         .collection("chatRoom")
-        .where("users", arrayContains: userEmail)
+        .where("users", arrayContains: userEmailName)
         .snapshots();
   }
 }

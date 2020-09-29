@@ -28,7 +28,11 @@ class _SearchScreenState extends State<SearchScreen> {
 
   createChatRoomAndStartConversation(String userEmail, String userName) {
     String chatRoomId = generiChatRoomId(userEmail, Constans.currentUserEmail);
-    List<String> users = [userEmail, Constans.currentUserEmail];
+    String userSend = "$userEmail $userName";
+    String userCurrent =
+        "${Constans.currentUserEmail} ${Constans.currentUserUserName}";
+    List<String> users = [userSend, userCurrent];
+
     Map<String, dynamic> chatRoomMap = {
       "users": users,
       "chatRoomId": chatRoomId
@@ -46,7 +50,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 25),
+      padding: EdgeInsets.only(top: 25.5),
       child: Column(
         children: [
           Container(
@@ -78,9 +82,12 @@ class _SearchScreenState extends State<SearchScreen> {
                     height: 40,
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 9),
                     decoration: BoxDecoration(
-                        color: Colors.black12,
+                        color: Color(0xFF00DEDC),
                         borderRadius: BorderRadius.circular(50)),
-                    child: Icon(Icons.search),
+                    child: Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],

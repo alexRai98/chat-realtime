@@ -1,5 +1,4 @@
 import 'package:challengeChat/helper/get_current_user.dart';
-import 'package:challengeChat/helper/helperfunction.dart';
 import 'package:challengeChat/service/database.dart';
 import 'package:challengeChat/widgets/chat_room_item.dart';
 import 'package:challengeChat/widgets/main_bar.dart';
@@ -13,25 +12,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   DatabaseMethods databaseMethods = new DatabaseMethods();
   Stream chatRoomStream;
+  String userEmailName =
+      "${Constans.currentUserEmail} ${Constans.currentUserUserName}";
 
   @override
   void initState() {
-    getUsername();
-    super.initState();
-  }
-
-  getUsername() async {
-    Constans.currentUserName =
-        await HelperFunctions.getUserNameSharePreference();
-    Constans.currentUserEmail =
-        await HelperFunctions.getUserEmailSharePreference();
-    Constans.currentUserUrlPhoto =
-        await HelperFunctions.getUserUrlPhotoSharePreference();
-    databaseMethods.getChatRooms(Constans.currentUserEmail).then((value) {
+    databaseMethods.getChatRooms(userEmailName).then((value) {
       setState(() {
         chatRoomStream = value;
       });
     });
+    super.initState();
   }
 
   @override
@@ -39,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Column(
       children: [
         MainBar("Doc Chat", 100, true),
-        // Container(child: chatRoomList())
+        Expanded(child: chatRoomList())
       ],
     );
   }
@@ -53,10 +44,23 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: snapshot.data.docs.length,
                   itemBuilder: (context, index) {
                     return ChatRoomItem(
-                      snapshot.data.docs[index].data()['chatRoomId'],
-                    );
+                        getUser(Constans.currentUserEmail,
+                            snapshot.data.docs[index].data()['users']),
+                        snapshot.data.docs[index].data()['chatRoomId']);
                   })
               : Container();
         });
   }
+}
+
+String getUser(String email, users) {
+  List dataBaseEmail;
+  String otherUser = "";
+  users.forEach((element) {
+    dataBaseEmail = element.split(" ");
+    if (dataBaseEmail[0] != email) {
+      otherUser = dataBaseEmail[1];
+    }
+  });
+  return otherUser;
 }
