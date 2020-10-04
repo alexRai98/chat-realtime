@@ -5,8 +5,7 @@ A app for send messages in real time.
 ## App's Flow
 <html>
 <img
-src=“images_app_flow/2.jpeg”
-raw=true
+src=“./images_app_flow/2.jpeg”
 alt=“Subject Pronouns”
 style=“margin-right: 10px;”
 />
