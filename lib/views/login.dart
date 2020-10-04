@@ -1,10 +1,10 @@
 import 'package:challengeChat/helper/helperfunction.dart';
-import 'package:challengeChat/models/user.dart';
 import 'package:challengeChat/service/conneted_api.dart';
 import 'package:challengeChat/service/database.dart';
 import 'package:challengeChat/service/firebase_auth.dart';
 import 'package:challengeChat/views/doc_chat.dart';
 import 'package:challengeChat/widgets/button_login.dart';
+import 'package:challengeChat/widgets/circular_progress.dart';
 import "package:flutter/material.dart";
 
 class SignIn extends StatefulWidget {
@@ -15,7 +15,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   DatabaseMethods databaseMethods = new DatabaseMethods();
   bool isLoading = false;
-  // Future<User> _futureAlbum;
+  String userName = "";
 
   login() {
     setState(() {
@@ -23,14 +23,15 @@ class _SignInState extends State<SignIn> {
     });
     logInWithGoogle().then((user) {
       if (user != null) {
+        userName = user.displayName.split(" ")[0].toLowerCase();
         HelperFunctions.saveUserLoggedInSharePreference(true);
         HelperFunctions.saveUserNameSharePreference(user.displayName);
-        HelperFunctions.saveUserUserNameSharePreference(
-            user.displayName.split(" ")[0]);
+        HelperFunctions.saveUserUserNameSharePreference(capitalize(userName));
         HelperFunctions.saveUserEmailSharePreference(user.email);
         HelperFunctions.saveUserUrlPhotoSharePreference(user.photoURL);
         Map<String, dynamic> userInfo = {
           "name": user.displayName,
+          "user_name": userName,
           "email": user.email,
           "url_photo": user.photoURL
         };
@@ -51,13 +52,7 @@ class _SignInState extends State<SignIn> {
   }
 
   Widget spinner() {
-    return Container(
-      color: Colors.white,
-      child: Center(
-          child: CircularProgressIndicator(
-        valueColor: new AlwaysStoppedAnimation<Color>(Color(0xFF00DEDC)),
-      )),
-    );
+    return Container(color: Colors.white, child: CircularProgress());
   }
 
   Widget signInWithGoogle() {
@@ -101,4 +96,16 @@ class _SignInState extends State<SignIn> {
       ),
     );
   }
+}
+
+String capitalize(String string) {
+  if (string == null) {
+    throw ArgumentError("string: $string");
+  }
+
+  if (string.isEmpty) {
+    return string;
+  }
+
+  return string[0].toUpperCase() + string.substring(1);
 }

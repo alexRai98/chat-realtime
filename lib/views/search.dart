@@ -1,9 +1,9 @@
 import 'package:challengeChat/helper/get_current_user.dart';
-import 'package:challengeChat/helper/helperfunction.dart';
+import 'package:challengeChat/service/conneted_api.dart';
 import 'package:challengeChat/service/database.dart';
 import 'package:challengeChat/views/conversation_screen.dart';
+import 'package:challengeChat/widgets/circular_progress.dart';
 import 'package:challengeChat/widgets/search_list_item.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -15,15 +15,20 @@ class _SearchScreenState extends State<SearchScreen> {
   DatabaseMethods databaseMethods = new DatabaseMethods();
   TextEditingController searchTextControler = new TextEditingController();
 
-  QuerySnapshot searchSnapshot;
+  List futureUsers;
+  bool isLogin = false;
 
   initialSearch() {
-    databaseMethods.getUsersByUserName(searchTextControler.text).then((val) {
+    setState(() {
+      isLogin = true;
+    });
+    fetchUsers(searchTextControler.text.toLowerCase()).then((value) {
       setState(() {
-        searchSnapshot = val;
+        futureUsers = value;
+        isLogin = false;
+        print(futureUsers[0]['name']);
       });
     });
-    // print(searchSnapshot.docs[0].data()["name"]);
   }
 
   createChatRoomAndStartConversation(String userEmail, String userName) {
@@ -68,55 +73,38 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: TextField(
                   style: TextStyle(fontSize: 20),
                   controller: searchTextControler,
-                  onChanged: (text) => print(text),
+                  onChanged: (text) {
+                    initialSearch();
+                  },
                   decoration: InputDecoration(
                       hintText: "Search username ....",
                       hintStyle: TextStyle(color: Colors.black26),
                       border: InputBorder.none),
                 )),
-                GestureDetector(
-                  onTap: () {
-                    initialSearch();
-                  },
-                  child: Container(
-                    height: 40,
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 9),
-                    decoration: BoxDecoration(
-                        color: Color(0xFF00DEDC),
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
-          searchList()
+          isLogin ? Expanded(child: CircularProgress()) : searchList()
         ],
       ),
     );
   }
 
   Widget searchList() {
-    Future<String> userLogged = HelperFunctions.getUserNameSharePreference();
-
-    return searchSnapshot != null
+    return futureUsers != null
         ? ListView.builder(
             shrinkWrap: true,
-            itemCount: searchSnapshot.docs.length,
+            itemCount: futureUsers.length,
             itemBuilder: (context, index) {
-              return userLogged.toString() !=
-                      searchSnapshot.docs[index].data()["name"]
+              return futureUsers.length > 0
                   ? SearchItem(
-                      searchSnapshot.docs[index].data()["name"],
-                      searchSnapshot.docs[index].data()["url_image"],
-                      searchSnapshot.docs[index].data()["email"],
+                      capitalize(futureUsers[index]["user_name"]),
+                      futureUsers[index]["url_photo"],
+                      futureUsers[index]["email"],
                       () => createChatRoomAndStartConversation(
-                          searchSnapshot.docs[index].data()["email"],
-                          searchSnapshot.docs[index].data()["name"]))
-                  : null;
+                          futureUsers[index]["email"],
+                          capitalize(futureUsers[index]["user_name"])))
+                  : Container();
             })
         : Container();
   }
@@ -129,4 +117,16 @@ generiChatRoomId(String user, String user2) {
   } else {
     return "$user\_$user2";
   }
+}
+
+String capitalize(String string) {
+  if (string == null) {
+    throw ArgumentError("string: $string");
+  }
+
+  if (string.isEmpty) {
+    return string;
+  }
+
+  return string[0].toUpperCase() + string.substring(1);
 }
