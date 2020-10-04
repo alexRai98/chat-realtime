@@ -4,7 +4,13 @@ A app for send messages in real time.
 
 ## App's Flow
 
-![Optional Text](./images_app_flow/1.jpeg)
+
+<img
+src=“./images_app_flow/2.jpeg”
+raw=true
+alt=“Subject Pronouns”
+style=“margin-right: 10px;”
+/>
 ![Optional Text](./images_app_flow/2.jpeg)
 ![Optional Text](./images_app_flow/3.jpeg)
 ![Optional Text](./images_app_flow/4.jpeg)
