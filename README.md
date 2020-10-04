@@ -6,7 +6,7 @@ A app for send messages in real time.
 
 
 <img
-src=“./images_app_flow/2.jpeg”
+src=“images_app_flow/2.jpeg”
 raw=true
 alt=“Subject Pronouns”
 style=“margin-right: 10px;”
